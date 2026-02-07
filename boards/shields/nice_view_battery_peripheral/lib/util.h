@@ -3,28 +3,27 @@
 #include <lvgl.h>
 #include <zmk/endpoints.h>
 
-#define CANVAS_SIZE 114
+#define CANVAS_SIZE 134
 #define BOTTOM_SIZE 68
-#define TOP_SIZE    68
+#define TOP_WIDTH   25
+#define TOP_HEIGHT  68
 #define LVGL_BACKGROUND                                                                            \
     IS_ENABLED(CONFIG_NICE_VIEW_WIDGET_INVERTED) ? lv_color_black() : lv_color_white()
 #define LVGL_FOREGROUND                                                                            \
     IS_ENABLED(CONFIG_NICE_VIEW_WIDGET_INVERTED) ? lv_color_white() : lv_color_black()
 
 struct status_state {
-    uint8_t battery;
-    uint8_t battery_peripheral;
-    bool charging;
-#if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+    uint8_t battery_slot0;
+    uint8_t battery_slot1;
+    bool charging_slot0;
+    bool charging_slot1;
     struct zmk_endpoint_instance selected_endpoint;
     int active_profile_index;
     bool active_profile_connected;
     bool active_profile_bonded;
     const char *layer_label;
-    bool peripheral_connected;
-#else
-    bool connected;
-#endif
+    bool connected_slot0;
+    bool connected_slot1;
 };
 
 void rotate_canvas(lv_obj_t *canvas, lv_color_t cbuf[], const int size);

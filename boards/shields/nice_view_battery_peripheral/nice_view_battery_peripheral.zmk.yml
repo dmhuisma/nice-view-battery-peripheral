@@ -1,6 +1,6 @@
 file_format: "1"
-id: nice_view_battery
-name: nice!view-battery
+id: nice_view_battery_peripheral
+name: nice!view-battery-peripheral
 type: shield
 url: https://nicekeyboards.com/nice-view
 requires: [nice_view_header]
