@@ -1,6 +1,12 @@
-# nice-view-battery
+# nice-view-battery-peripheral
 
-![Preview](https://github.com/infely/nice-view-battery/blob/main/.github/assets/preview.jpg?raw=true)
+This is my fork of [nice-view-battery](https://github.com/infely/nice-view-battery-peripheral), which changes the original by adding a second battery display to show the battery of two split peripheral devices at once. More importantly, is uses my [zmk-split-status-relay](https://github.com/dmhuisma/zmk-split-status-relay) module to allow it to display useful information when used on a split peripheral. Normally displays on split peripherals are quite limited to what they can show, but this operates with feature parity to the original split central version of the module this was forked from.
+
+[!NOTE] The index of each split peripheral is determined by the order they are paired. So you likely want to connect left splits before the right one.
+
+The original README of this module is shown below.
+
+![Preview](https://github.com/dmhuisma/nice-view-battery-peripheral/blob/main/.github/assets/preview.jpg?raw=true)
 
 ### All You Need: nice!view Battery
 
@@ -12,7 +18,7 @@ Add this shield to your keymap repo (see usage below) and run the GitHub action 
 
 My preference is to comment out the `display-name` for your base layer so it highlights changes only, keeping layout clean and visualy appealing. But the final decision on you.
 
-![Layer](https://github.com/infely/nice-view-battery/blob/main/.github/assets/layer.jpg?raw=true)
+![Layer](https://github.com/dmhuisma/nice-view-battery-peripheral/blob/main/.github/assets/layer.jpg?raw=true)
 
 ## Usage
 
