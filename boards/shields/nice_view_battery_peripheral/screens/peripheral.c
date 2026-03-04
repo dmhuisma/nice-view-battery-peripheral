@@ -49,32 +49,32 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 // Draw
 
-static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
+static void draw_top(lv_obj_t *widget, const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 0);
     draw_background(canvas, TOP_WIDTH);
 
     draw_output_status(canvas, state);
 
-    rotate_canvas(canvas, cbuf, TOP_WIDTH);
+    rotate_canvas(canvas, TOP_WIDTH);
 }
 
-static void draw_middle(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
+static void draw_middle(lv_obj_t *widget, const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 1);
     draw_background(canvas, CANVAS_SIZE);
 
     draw_battery_status(canvas, state);
 
-    rotate_canvas(canvas, cbuf, CANVAS_SIZE);
+    rotate_canvas(canvas, CANVAS_SIZE);
 }
 
-static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
+static void draw_bottom(lv_obj_t *widget, const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 2);
     draw_background(canvas, BOTTOM_SIZE);
 
     draw_layer_status(canvas, state);
     draw_profile_status(canvas, state);
 
-    rotate_canvas(canvas, cbuf, BOTTOM_SIZE);
+    rotate_canvas(canvas, BOTTOM_SIZE);
 }
 
 // Battery status
@@ -83,14 +83,14 @@ static void set_battery_status_slot0(struct zmk_widget_screen *widget,
                                struct battery_status_state state) {
     widget->state.charging_slot0 = state.charging;
     widget->state.battery_slot0 = state.level;
-    draw_middle(widget->obj, widget->cbuf2, &widget->state);
+    draw_middle(widget->obj, &widget->state);
 }
 
 static void set_battery_status_slot1(struct zmk_widget_screen *widget,
                                struct battery_status_state state) {
     widget->state.charging_slot1 = state.charging;
     widget->state.battery_slot1 = state.level;
-    draw_middle(widget->obj, widget->cbuf2, &widget->state);
+    draw_middle(widget->obj, &widget->state);
 }
 
 static void battery_status_slot0_update_cb(struct battery_status_state state) {
@@ -163,7 +163,7 @@ ZMK_SUBSCRIPTION(widget_battery_status_slot1, zmk_ssr_peripheral_connection_stat
 
 static void set_layer_status(struct zmk_widget_screen *widget, struct layer_status_state state) {
     widget->state.layer_label = state.label;
-    draw_bottom(widget->obj, widget->cbuf3, &widget->state);
+    draw_bottom(widget->obj, &widget->state);
 }
 
 static void layer_status_update_cb(struct layer_status_state state) {
@@ -196,8 +196,8 @@ static void set_output_status(struct zmk_widget_screen *widget,
     widget->state.connected_slot0 = state->connected_slot0;
     widget->state.connected_slot1 = state->connected_slot1;
 
-    draw_top(widget->obj, widget->cbuf, &widget->state);
-    draw_bottom(widget->obj, widget->cbuf3, &widget->state);
+    draw_top(widget->obj, &widget->state);
+    draw_bottom(widget->obj, &widget->state);
 }
 
 static void output_status_update_cb(struct output_status_state state) {
@@ -249,18 +249,21 @@ ZMK_SUBSCRIPTION(widget_output_status, zmk_ssr_central_ble_profile_changed);
 int zmk_widget_screen_init(struct zmk_widget_screen *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
     lv_obj_set_size(widget->obj, 160, 68);
+    lv_obj_set_style_pad_all(widget->obj, 0, LV_PART_MAIN);
+    lv_obj_set_style_border_width(widget->obj, 0, LV_PART_MAIN);
+    lv_obj_set_scrollbar_mode(widget->obj, LV_SCROLLBAR_MODE_OFF);
 
     lv_obj_t *top = lv_canvas_create(widget->obj);
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
-    lv_canvas_set_buffer(top, widget->cbuf, TOP_WIDTH, TOP_HEIGHT, LV_IMG_CF_TRUE_COLOR);
+    lv_canvas_set_buffer(top, widget->cbuf, TOP_WIDTH, TOP_HEIGHT, CANVAS_COLOR_FORMAT);
 
     lv_obj_t *middle = lv_canvas_create(widget->obj);
     lv_obj_align(middle, LV_ALIGN_TOP_LEFT, 0, 0);
-    lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
+    lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, CANVAS_COLOR_FORMAT);
 
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
     lv_obj_align(bottom, LV_ALIGN_TOP_LEFT, -40, 0);
-    lv_canvas_set_buffer(bottom, widget->cbuf3, BOTTOM_SIZE, BOTTOM_SIZE, LV_IMG_CF_TRUE_COLOR);
+    lv_canvas_set_buffer(bottom, widget->cbuf3, BOTTOM_SIZE, BOTTOM_SIZE, CANVAS_COLOR_FORMAT);
 
     sys_slist_append(&widgets, &widget->node);
     widget_battery_status_slot0_init();

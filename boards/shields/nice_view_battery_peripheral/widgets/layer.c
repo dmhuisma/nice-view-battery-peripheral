@@ -12,8 +12,8 @@ void draw_layer_status(lv_obj_t *canvas, const struct status_state *state) {
         return;
     }
 
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
     lv_draw_label_dsc_t label_dsc;
     init_label_dsc(&label_dsc, LVGL_BACKGROUND, &font, LV_TEXT_ALIGN_CENTER);
 
@@ -21,6 +21,6 @@ void draw_layer_status(lv_obj_t *canvas, const struct status_state *state) {
     strcpy(text, state->layer_label);
     to_uppercase(text);
 
-    lv_canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &layer, &img_dsc);
-    lv_canvas_draw_text(canvas, OFFSET_X + 2, OFFSET_Y, 64, &label_dsc, text);
+    canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &layer, &img_dsc);
+    canvas_draw_text(canvas, OFFSET_X + 2, OFFSET_Y, 64, &label_dsc, text);
 }

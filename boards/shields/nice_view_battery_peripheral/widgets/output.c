@@ -14,51 +14,51 @@ LV_IMG_DECLARE(link);
 LV_IMG_DECLARE(link_disconnected);
 
 static void draw_usb_connected(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &usb, &img_dsc);
+    canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &usb, &img_dsc);
 }
 
 static void draw_ble_unbonded(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &unbound, &img_dsc);
+    canvas_draw_img(canvas, OFFSET_X, OFFSET_Y, &unbound, &img_dsc);
 }
 
 static void draw_ble_disconnected(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X, OFFSET_Y,
+    canvas_draw_img(canvas, OFFSET_X, OFFSET_Y,
                        &bt_disconnected,
                        &img_dsc);
 }
 
 static void draw_ble_connected(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X, OFFSET_Y,
+    canvas_draw_img(canvas, OFFSET_X, OFFSET_Y,
                        &bt,
                        &img_dsc);
 }
 
 static void draw_peripheral_connected(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X_PERIPHERAL, OFFSET_Y,
+    canvas_draw_img(canvas, OFFSET_X_PERIPHERAL, OFFSET_Y,
                        &link,
                        &img_dsc);
 }
 
 static void draw_peripheral_disconnected(lv_obj_t *canvas) {
-    lv_draw_img_dsc_t img_dsc;
-    lv_draw_img_dsc_init(&img_dsc);
+    lv_draw_image_dsc_t img_dsc;
+    lv_draw_image_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, OFFSET_X_PERIPHERAL, OFFSET_Y,
+    canvas_draw_img(canvas, OFFSET_X_PERIPHERAL, OFFSET_Y,
                        &link_disconnected,
                        &img_dsc);
 }
