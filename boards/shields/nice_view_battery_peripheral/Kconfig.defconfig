@@ -35,6 +35,11 @@ config NICE_VIEW_WIDGET_STATUS
 config NICE_VIEW_WIDGET_INVERTED
     bool "Invert display colors"
 
+config NICE_VIEW_BATTERY_PERIPHERAL_SLOT
+    int "Show only the battery of this peripheral slot (0 or 1), -1 shows both"
+    default -1
+    range -1 1
+
 if !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
 
 endif # !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
